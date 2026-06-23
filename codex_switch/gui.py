@@ -24,7 +24,7 @@ def run_gui():
             widget.destroy()
         _build_ui(root, _rebuild)
 
-    _rebuild(root)
+    _rebuild()
     root.mainloop()
 
 

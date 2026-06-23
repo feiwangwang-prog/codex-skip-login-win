@@ -1,15 +1,20 @@
-# Codex Switch - Windows 版
+# Codex Switch · Windows 版
 
-让 Codex Desktop 跳过 ChatGPT 登录，直接接入国产模型（如小米 MiMo API）。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+
+> **中文** | [English](#codex-switch--windows-edition)
+
+让 Codex Desktop 跳过 ChatGPT 登录，直接接入国产模型（如小米 MiMo API）或任何 OpenAI 兼容 API。
 
 ## 功能
 
-- **免登接入**：修改 `~/.codex/config.toml`，绕过 ChatGPT OAuth 登录
-- **协议适配**：本地 HTTP 代理，将 Codex 的 Responses API 转成 Chat Completions 格式
-- **GUI 界面**：tkinter 图形界面，支持中英文切换，操作简单
-- **CLI 命令行**：适合脚本和高级用户，支持 `--lang en` 切换语言
-- **开机自启**：适配器可注册为开机启动
-- **一键还原**：随时恢复官方登录配置
+- **免登接入** — 修改 `~/.codex/config.toml`，绕过 ChatGPT OAuth 登录
+- **协议适配** — 本地 HTTP 代理，将 Codex 的 Responses API 转成 Chat Completions 格式
+- **GUI 界面** — tkinter 图形界面，支持中英文切换
+- **CLI 命令行** — 适合脚本和高级用户，`--lang en` 切换语言
+- **一键启动** — `start-adapter.bat` 从已保存配置启动适配器，无需重复输入参数
+- **一键还原** — 随时恢复官方登录配置
 
 ## 环境要求
 
@@ -23,9 +28,9 @@
 
 双击 `run_gui.bat`，在界面中填写：
 
-1. **API 地址**：你的模型服务地址（如 `http://127.0.0.1:8080`）
-2. **模型 ID**：模型名称（如 `MiMo-7B-RL`）
-3. **API Key**：你的 API 密钥
+1. **API 地址** — 你的模型服务地址（如 `http://127.0.0.1:8080`）
+2. **模型 ID** — 模型名称（如 `MiMo-7B-RL`）
+3. **API Key** — 你的 API 密钥
 4. 勾选「上游仅支持 Chat Completions」（大多数国产模型需要）
 5. 点击「应用并重启 Codex」
 
@@ -35,7 +40,7 @@
 
 ```bash
 # 应用自定义模型配置（启用适配器 + 跳过登录）
-python -m codex_switch.cli local \
+codex-switch local \
   --base-url http://127.0.0.1:8080 \
   --model MiMo-7B-RL \
   --api-key sk-xxx \
@@ -43,27 +48,33 @@ python -m codex_switch.cli local \
   --skip-login
 
 # 英文输出
-python -m codex_switch.cli --lang en local \
+codex-switch --lang en local \
   --base-url http://127.0.0.1:8080 \
   --model MiMo-7B-RL \
   --api-key sk-xxx \
   --chat-adapter \
   --skip-login
 
-# 启动协议适配器（另开一个终端）
-python -m codex_switch.cli adapter \
-  --base-url http://127.0.0.1:8080 \
-  --model MiMo-7B-RL \
-  --api-key sk-xxx
-
 # 查看当前状态
-python -m codex_switch.cli status
+codex-switch status
 
 # 恢复官方登录
-python -m codex_switch.cli official
+codex-switch official
 ```
 
-### 方式三：一键安装
+### 方式三：启动适配器
+
+配置保存后，可以用 bat 一键启动适配器（无需重复输入参数）：
+
+```bash
+# 双击或命令行运行
+start-adapter.bat
+
+# 或手动指定参数
+python -m codex_switch.adapter http://127.0.0.1:8080 MiMo-7B-RL sk-xxx
+```
+
+### 方式四：一键安装
 
 ```bash
 scripts\install.bat
@@ -85,6 +96,14 @@ Codex Desktop
 你的模型 API（MiMo、DeepSeek 等）
 ```
 
+## 语言切换
+
+| 方式 | 用法 |
+|------|------|
+| GUI | 点击窗口右上角的 EN / 中文 按钮 |
+| CLI 参数 | `codex-switch --lang en status` |
+| 环境变量 | `set CODEX_SWITCH_LANG=en` 后运行 CLI |
+
 ## 文件说明
 
 | 文件 | 用途 |
@@ -94,28 +113,25 @@ Codex Desktop
 | `~/.codex/codex-switch-state.json` | 工具运行状态 |
 | `~/.codex/backups/` | 配置自动备份 |
 
-## 语言切换
-
-| 方式 | 用法 |
-|------|------|
-| GUI | 点击窗口右上角的 EN / 中文 按钮，界面实时切换 |
-| CLI 参数 | `codex-switch --lang en status` |
-| 环境变量 | `set CODEX_SWITCH_LANG=en` 后运行 CLI 命令 |
-
 ---
 
-# Codex Switch - Windows Edition
+# Codex Switch · Windows Edition
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+
+> **English** | [中文](#codex-switch--windows-版)
 
 Skip the ChatGPT login requirement in Codex Desktop and connect to any OpenAI-compatible model API directly.
 
 ## Features
 
-- **Login Bypass**: Modify `~/.codex/config.toml` to bypass ChatGPT OAuth login
-- **Protocol Adapter**: Local HTTP proxy that converts Codex Responses API to Chat Completions format
-- **GUI**: tkinter interface with bilingual support (Chinese / English)
-- **CLI**: Command-line interface with `--lang en` for English output
-- **Auto-start**: Adapter can register as a startup item
-- **One-click Restore**: Revert to official Codex login config anytime
+- **Login Bypass** — Modify `~/.codex/config.toml` to bypass ChatGPT OAuth login
+- **Protocol Adapter** — Local HTTP proxy that converts Codex Responses API to Chat Completions format
+- **GUI** — tkinter interface with bilingual support (Chinese / English)
+- **CLI** — Command-line interface with `--lang en` for English output
+- **One-click Start** — `start-adapter.bat` launches adapter from saved config, no need to re-enter params
+- **One-click Restore** — Revert to official Codex login config anytime
 
 ## Requirements
 
@@ -129,9 +145,9 @@ Skip the ChatGPT login requirement in Codex Desktop and connect to any OpenAI-co
 
 Double-click `run_gui.bat` and fill in:
 
-1. **API URL**: Your model service address (e.g. `http://127.0.0.1:8080`)
-2. **Model ID**: Model name (e.g. `MiMo-7B-RL`)
-3. **API Key**: Your API key
+1. **API URL** — Your model service address (e.g. `http://127.0.0.1:8080`)
+2. **Model ID** — Model name (e.g. `MiMo-7B-RL`)
+3. **API Key** — Your API key
 4. Check "Upstream only supports Chat Completions" (required for most non-OpenAI providers)
 5. Click "Apply & Restart Codex"
 
@@ -141,27 +157,33 @@ Use the EN / 中文 button in the top-right corner to switch the interface langu
 
 ```bash
 # Apply custom model config (with adapter + skip login)
-python -m codex_switch.cli --lang en local \
+codex-switch local \
   --base-url http://127.0.0.1:8080 \
   --model MiMo-7B-RL \
   --api-key sk-xxx \
   --chat-adapter \
   --skip-login
 
-# Start protocol adapter (in a separate terminal)
-python -m codex_switch.cli adapter \
-  --base-url http://127.0.0.1:8080 \
-  --model MiMo-7B-RL \
-  --api-key sk-xxx
-
 # Check current status
-python -m codex_switch.cli --lang en status
+codex-switch --lang en status
 
 # Restore official login
-python -m codex_switch.cli official
+codex-switch official
 ```
 
-### Option 3: One-click Install
+### Option 3: Start Adapter
+
+After saving config, launch the adapter with one click (no need to re-enter params):
+
+```bash
+# Double-click or run from command line
+start-adapter.bat
+
+# Or specify params manually
+python -m codex_switch.adapter http://127.0.0.1:8080 MiMo-7B-RL sk-xxx
+```
+
+### Option 4: One-click Install
 
 ```bash
 scripts\install.bat
@@ -183,6 +205,14 @@ Adapter (127.0.0.1:17638)
 Your Model API (MiMo, DeepSeek, etc.)
 ```
 
+## Language Switching
+
+| Method | Usage |
+|--------|-------|
+| GUI | Click the EN / 中文 button in the top-right corner |
+| CLI flag | `codex-switch --lang en status` |
+| Env variable | `set CODEX_SWITCH_LANG=en` then run any CLI command |
+
 ## File Overview
 
 | File | Purpose |
@@ -191,14 +221,6 @@ Your Model API (MiMo, DeepSeek, etc.)
 | `~/.codex/auth.json` | Stores API key |
 | `~/.codex/codex-switch-state.json` | Tool runtime state |
 | `~/.codex/backups/` | Auto backups of config |
-
-## Language Switching
-
-| Method | Usage |
-|--------|-------|
-| GUI | Click the EN / 中文 button in the top-right corner; the UI updates instantly |
-| CLI flag | `codex-switch --lang en status` |
-| Environment variable | `set CODEX_SWITCH_LANG=en` then run any CLI command |
 
 ## Acknowledgments
 

@@ -359,3 +359,27 @@ def run_adapter_forever(base_url: str, model: str, api_key: str, port: int = ADA
         print("\n适配器已停止")
     finally:
         _adapter_state.running = False
+
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) >= 4:
+        # 命令行参数模式: python -m codex_switch.adapter <base_url> <model> <api_key> [port]
+        run_adapter_forever(sys.argv[1], sys.argv[2], sys.argv[3],
+                            int(sys.argv[4]) if len(sys.argv) > 4 else ADAPTER_PORT)
+    else:
+        # 从 state 读取配置（供 start-adapter.bat 使用）
+        from .state import read_state
+        from .auth import read_auth
+
+        state = read_state()
+        auth = read_auth()
+        base_url = state.get("base_url", "")
+        model = state.get("model", "")
+        api_key = auth.get("api_key", "")
+        if not base_url or not model or not api_key:
+            print("错误: 未找到配置。请先运行 codex-switch local 配置模型，或传参启动:")
+            print("  python -m codex_switch.adapter <base_url> <model> <api_key> [port]")
+            sys.exit(1)
+        run_adapter_forever(base_url, model, api_key, state.get("adapter_port", ADAPTER_PORT))
