@@ -113,6 +113,13 @@ Codex Desktop
 | `~/.codex/codex-switch-state.json` | 工具运行状态 |
 | `~/.codex/backups/` | 配置自动备份 |
 
+## 致谢
+
+- [codex-skip-login](https://github.com/huangama666/codex-skip-login) — macOS 原版工具，本项目的灵感来源
+- [codex-switch](https://github.com/kuangre123/codex-switch) — 功能更完善的 macOS 版 Codex 配置工具，支持 Claude Code 切换
+- [Alice](https://github.com/op7418) — AI 助手，完成了全部 Windows 版代码编写和适配
+- [小米 MiMo](https://github.com/XiaomiMiMo/MiMo) — 本项目默认测试使用的推理模型
+
 ---
 
 # Codex Switch · Windows Edition
@@ -224,7 +231,10 @@ Your Model API (MiMo, DeepSeek, etc.)
 
 ## Acknowledgments
 
-Ported from the macOS version of [codex-skip-login](https://github.com/huangama666/codex-skip-login).
+- [codex-skip-login](https://github.com/huangama666/codex-skip-login) — macOS original, the inspiration for this project
+- [codex-switch](https://github.com/kuangre123/codex-switch) — A more full-featured macOS tool for Codex / Claude Code provider switching
+- [Alice](https://github.com/op7418) — AI assistant that wrote and adapted all Windows code
+- [Xiaomi MiMo](https://github.com/XiaomiMiMo/MiMo) — Default test model used in this project
 
 ## License
 
